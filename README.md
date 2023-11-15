@@ -1,6 +1,8 @@
 # bitcamp-practice
 
 ## 2023.11.15
+
+### 몰랐던 git 명령어
 Merge (병합): 새로운 병합 커밋이 생성되며, 변경 사항을 통합합니다.
 
 git pull origin main --no-rebase
