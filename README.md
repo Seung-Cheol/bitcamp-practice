@@ -9,6 +9,8 @@ git pull origin main --no-rebase
 
 git pull origin main --rebase=false
 
+git restore --staged 파일명
+
 Rebase (리베이스): 변경 사항을 다른 브랜치 위로 옮겨 합칩니다. 히스토리가 더 선형적으로 유지되어 깔끔한 히스토리를 유지할 수 있습니다.
 
 
