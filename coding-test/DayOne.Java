@@ -51,4 +51,6 @@ class DayOne {
   return players;
   }
   }
+
+ // boolean check = Arrays.asList(players).contains(callings[i]); 해당 코드 실행 시 계속 asList의 리스트를 계속 불러냄
 }
