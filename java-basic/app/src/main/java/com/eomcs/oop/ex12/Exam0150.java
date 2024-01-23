@@ -8,6 +8,8 @@ public class Exam0150 {
   }
 
   public static void main(String[] args) {
+    Calculator c0 =  (a, b) -> a + b;
+
     // 1) 리턴 값은 return 명령을 사용하여 처리한다.
     Calculator c1 = (a, b) -> {
       return a + b;

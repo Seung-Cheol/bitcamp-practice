@@ -26,8 +26,18 @@ public class Exam0510 {
       }
     };
 
+    Calculator obj0 = new Calculator() {
+      @Override
+      public int compute(int x, int y) {
+        return x * y;
+      }
+    };
+    Calculator obj3 = MyCalculator::multiple;
+    //Calculator obj3 = (x,y)->MyCalculator.multiple(x, y);
+
     // 2) 람바 문법 활용
     Calculator obj2 = (x, y) -> x * y;
+
 
     // 3) 기존에 작성한 클래스의 스태틱 메서드를 재활용하기
     // => 인터페이스의 메서드 규격과 일치하는 메서드가 있다면,
@@ -37,6 +47,8 @@ public class Exam0510 {
     // => 문법:
     //    클래스명::메서드명
     Calculator c1 = MyCalculator::plus; // MyCalculator의 스태틱 메서드인 plus()를 가지고 구현체를 자동 생성!
+
+    Calculator c0 = (x,y)->MyCalculator.plus(x, y);
     //    Calculator c = new Calculator() {
     //      @Override
     //      public int compute(int x, int y) {

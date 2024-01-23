@@ -12,7 +12,7 @@ public class Sender2 {
 
     Scanner keyScan = new Scanner(System.in);
 
-    Socket socket = new Socket("192.168.0.19", 8888);
+    Socket socket = new Socket("192.168.0.42", 9000);
 
     PrintStream out = new PrintStream(socket.getOutputStream());
     Scanner in = new Scanner(socket.getInputStream());
@@ -25,7 +25,6 @@ public class Sender2 {
     // 서버가 보낸 데이터를 수신한다.
     String str = in.nextLine();
     System.out.println(str);
-
     in.close();
     out.close();
     socket.close();

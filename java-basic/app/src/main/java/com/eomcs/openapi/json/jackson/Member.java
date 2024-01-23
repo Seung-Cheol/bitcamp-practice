@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Member {
   private int no;
-  private String name;
+  private String fullName;
   private String email;
   private String password;
   private String photo;
@@ -13,7 +13,7 @@ public class Member {
 
   @Override
   public String toString() {
-    return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password
+    return "Member [no=" + no + ", fullName=" + fullName + ", email=" + email + ", password=" + password
         + ", photo=" + photo + ", tel=" + tel + ", registeredDate=" + registeredDate + "]";
   }
 
@@ -24,10 +24,10 @@ public class Member {
     this.no = no;
   }
   public String getName() {
-    return name;
+    return fullName;
   }
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String fullName) {
+    this.fullName = fullName;
   }
   public String getEmail() {
     return email;

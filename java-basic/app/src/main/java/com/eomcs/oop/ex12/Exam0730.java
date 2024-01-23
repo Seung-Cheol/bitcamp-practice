@@ -42,7 +42,6 @@ public class Exam0730 {
 
     msg = f2.get("홍길동"); // ==> new Message("홍길동")
     msg.print();
-
   }
 }
 
