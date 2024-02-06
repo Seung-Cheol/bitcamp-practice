@@ -24,4 +24,25 @@ public class Day36 {
         return answer;
     }
 }
+
+
+
+import java.util.*;
+//https://school.programmers.co.kr/learn/courses/30/lessons/161989
+class Solution2 {
+    public int solution(int n, int m, int[] section) {
+        int answer = 0;
+        int maxFilter = 0;
+        for(int i =0; section.length>i; i++) {
+            if(maxFilter >= section[i]) continue;
+            
+            if(maxFilter < section[section.length-1]) {
+                answer++;
+                maxFilter = section[i] + m -1;
+            }
+        }
+        
+        return answer;
+    }
+}
 }
