@@ -54,8 +54,7 @@ public class ClientApp {
       //Driver driver = new com.mysql.cj.jdbc.Driver();
       //DriverManager.registerDriver(driver);
       Connection con = DriverManager.getConnection(
-        //"jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123"
-        "jdbc:mysql://db-ld29f-kr.vpc-pub-cdb.ntruss.com/studydb", "study", "Bitcamp!@#123"
+        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123"
       );
       boardDao = new BoardDaoImpl(con, 1);
       greetingDao = new BoardDaoImpl(con, 2);

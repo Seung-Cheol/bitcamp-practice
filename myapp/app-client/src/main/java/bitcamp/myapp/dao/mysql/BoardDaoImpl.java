@@ -28,6 +28,7 @@ public class BoardDaoImpl implements BoardDao {
         board.getTitle(), board.getContent(), board.getWriter(), this.category));
 
     } catch (Exception e) {
+      e.printStackTrace();
       throw new DaoException("데이터 입력 오류", e);
     }
   }
