@@ -27,8 +27,11 @@ public class BoardDao {
   }
 
   public List<Board> findAll() throws Exception {
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+        "study", // username
+        "Bitcamp!@#123" // password
+        );
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from x_board order by board_id desc")) {
 
@@ -52,7 +55,7 @@ public class BoardDao {
         Statement stmt = con.createStatement();) {
 
       String sql = String.format(
-          "insert into x_board(title,contents) values('%s','%s')", 
+          "insert into x_board(title,contents) values('%s','%s')",
           board.getTitle(),
           board.getContent());
 
@@ -66,7 +69,7 @@ public class BoardDao {
         Statement stmt = con.createStatement()) {
 
       String sql = String.format(
-          "update x_board set title='%s', contents='%s' where board_id=%d", 
+          "update x_board set title='%s', contents='%s' where board_id=%d",
           board.getTitle(),
           board.getContent(),
           board.getNo());

@@ -1,7 +1,6 @@
 // 자식 테이블의 데이터를 함께 입력할 때 문제점
 package com.eomcs.jdbc.ex4;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -33,8 +32,11 @@ public class Exam0110 {
       }
     }
 
-    try (Connection con = DriverManager.getConnection( //
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+        "study", // username
+        "Bitcamp!@#123" // password
+        );
 
         // 게시글 입력 처리 객체
         PreparedStatement boardStmt = con.prepareStatement(

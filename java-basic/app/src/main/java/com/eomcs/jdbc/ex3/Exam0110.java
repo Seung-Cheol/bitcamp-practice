@@ -1,7 +1,6 @@
 // Statement 와 SQL 삽입 공격
 package com.eomcs.jdbc.ex3;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -20,8 +19,11 @@ public class Exam0110 {
       contents = keyboard.nextLine();
     }
 
-    try (Connection con = DriverManager.getConnection( //
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+        "study", // username
+        "Bitcamp!@#123" // password
+        );
         Statement stmt = con.createStatement()) {
 
       // SQL 삽입 공격

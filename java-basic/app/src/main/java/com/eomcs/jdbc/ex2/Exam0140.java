@@ -1,7 +1,6 @@
 // 게시판 관리 - 변경
 package com.eomcs.jdbc.ex2;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -34,9 +33,12 @@ public class Exam0140 {
       contents = keyScan.nextLine();
     }
 
-    try (Connection con = DriverManager.getConnection( //
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement()) {
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+        "study", // username
+        "Bitcamp!@#123" // password
+        );
+        Statement stmt = con.createStatement();) {
 
       // update 문장은 executeUpdate()를 사용하여 서버에 전달한다.
       String sql = String.format(

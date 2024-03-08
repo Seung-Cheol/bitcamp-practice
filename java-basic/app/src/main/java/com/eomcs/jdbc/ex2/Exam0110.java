@@ -1,7 +1,6 @@
 // 게시판 관리 - 등록
 package com.eomcs.jdbc.ex2;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -39,8 +38,11 @@ public class Exam0110 {
       }
     }
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+        "study", // username
+        "Bitcamp!@#123" // password
+        );
         Statement stmt = con.createStatement();) {
 
       String sql = String.format(

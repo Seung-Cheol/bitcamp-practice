@@ -1,7 +1,6 @@
 // 게시물 관리 - 목록
 package com.eomcs.jdbc.ex2;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -16,8 +15,11 @@ import java.sql.Statement;
 public class Exam0120 {
 
   public static void main(String[] args) throws Exception {
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+        "study", // username
+        "Bitcamp!@#123" // password
+        );
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
             "select board_id, title, created_date, view_count from x_board order by board_id desc")) {

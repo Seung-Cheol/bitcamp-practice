@@ -14,8 +14,11 @@ import java.util.List;
 
 public class BoardDao {
   public int delete(int no) throws Exception {
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+        "study", // username
+        "Bitcamp!@#123" // password
+        );
         PreparedStatement stmt = con.prepareStatement(
             "delete from x_board where board_id=?")) {
 

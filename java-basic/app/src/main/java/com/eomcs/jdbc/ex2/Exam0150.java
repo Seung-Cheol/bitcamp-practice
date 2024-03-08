@@ -1,7 +1,6 @@
 // 게시판 관리 - 삭제
 package com.eomcs.jdbc.ex2;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -23,9 +22,12 @@ public class Exam0150 {
       no = keyScan.nextLine();
     }
 
-    try (Connection con = DriverManager.getConnection( //
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement()) {
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+        "study", // username
+        "Bitcamp!@#123" // password
+        );
+        Statement stmt = con.createStatement();) {
 
       // delete 문장은 executeUpdate()를 사용하여 서버에 전달한다.
       // => 게시글 첨부 파일 삭제
