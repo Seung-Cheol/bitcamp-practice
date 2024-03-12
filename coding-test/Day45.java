@@ -2,25 +2,22 @@ import java.util.*;
 class Day45 {
     class Solution {
         public int[] solution(int[] arr) {
-            //값 복사
-            int[] temp = arr;
-            //새 배열 생성
             List<Integer> array = new ArrayList<>();
+            for(int a : arr) {
+                array.add(a);
+            }
             Arrays.sort(arr);
-            // 최소값 구하기
             int min = arr[0];
-            for (int i = 0; i < temp.length; i++) {
-                if (temp[i] == min) {
-                    continue;
-                }
-                array.add(temp[i]);
+            array.remove(Integer.valueOf(min));
+            int[] answer = new int[array.size()];
+            for(int i = 0; i<answer.length; i++) {
+                answer[i]=array.get(i);
             }
-
-            int[] answer = new int[arr.length - 1];
-            for (int i = 0; i < answer.length; i++) {
-                answer[i] = array.get(i);
+            if(answer.length==0) {
+                return new int[]{-1};
+            } else {
+                return answer;
             }
-            return answer;
         }
     }
 }
