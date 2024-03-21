@@ -2,16 +2,18 @@ package bitcamp.myapp.controller;
 
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
-import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/auth")
 public class AuthController {
 
   MemberDao memberDao;
@@ -21,21 +23,22 @@ public class AuthController {
     this.memberDao = memberDao;
   }
 
-  @RequestMapping("/auth/form")
+  @GetMapping("/form")
   public String form(
-      @CookieValue(value = "email", required = false) String email,
-      Map<String, Object> map) {
-    map.put("email", email);
-    return "/auth/form.jsp";
+    @CookieValue(value = "email", required = false) String email,
+    Model model
+  ) {
+    model.addAttribute("email", email);
+    return "/auth/form";
   }
 
-  @RequestMapping("/auth/login")
+  @PostMapping("/login")
   public String login(
-      @RequestParam("email") String email,
-      @RequestParam("password") String password,
-      @RequestParam(value = "saveEmail", required = false) String saveEmail,
-      HttpServletResponse response,
-      HttpSession session) throws Exception {
+    String email,
+    String password,
+    String saveEmail,
+    HttpServletResponse response,
+    HttpSession session) throws Exception {
 
     if (saveEmail != null) {
       Cookie cookie = new Cookie("email", email);
@@ -51,10 +54,10 @@ public class AuthController {
     if (member != null) {
       session.setAttribute("loginUser", member);
     }
-    return "/auth/login.jsp";
+    return "/auth/login";
   }
 
-  @RequestMapping("/auth/logout")
+  @GetMapping("/logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate();
     return "redirect:/index.html";

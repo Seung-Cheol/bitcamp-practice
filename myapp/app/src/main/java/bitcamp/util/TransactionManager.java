@@ -1,15 +1,20 @@
 package bitcamp.util;
 
 import java.sql.Connection;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionManager {
 
+
+  private final Log log = LogFactory.getLog(this.getClass());
+
   ConnectionPool connectionPool;
 
   public TransactionManager(ConnectionPool connectionPool) {
-    System.out.println("TransactionManager() 호출됨!");
+    log.debug("TransactionManager() 호출됨!");
     this.connectionPool = connectionPool;
   }
 

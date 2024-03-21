@@ -9,23 +9,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Component;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class AssignmentDaoImpl implements AssignmentDao {
 
+  private final Log log = LogFactory.getLog(this.getClass());
   DBConnectionPool connectionPool;
 
   public AssignmentDaoImpl(DBConnectionPool connectionPool) {
-    System.out.println("AssignmentDaoImpl() 호출됨!");
+    log.debug("AssignmentDaoImpl() 호출됨!");
     this.connectionPool = connectionPool;
   }
 
   @Override
   public void add(Assignment assignment) {
     try (Connection con = connectionPool.getConnection();
-        PreparedStatement pstmt = con.prepareStatement(
-            "insert into assignments(title,content,deadline) values(?,?,?)")) {
+      PreparedStatement pstmt = con.prepareStatement(
+        "insert into assignments(title,content,deadline) values(?,?,?)")) {
 
       pstmt.setString(1, assignment.getTitle());
       pstmt.setString(2, assignment.getContent());
@@ -41,8 +44,8 @@ public class AssignmentDaoImpl implements AssignmentDao {
   @Override
   public int delete(int no) {
     try (Connection con = connectionPool.getConnection();
-        PreparedStatement pstmt = con.prepareStatement(
-            "delete from assignments where assignment_no=?")) {
+      PreparedStatement pstmt = con.prepareStatement(
+        "delete from assignments where assignment_no=?")) {
       pstmt.setInt(1, no);
 
       return pstmt.executeUpdate();
@@ -55,9 +58,9 @@ public class AssignmentDaoImpl implements AssignmentDao {
   @Override
   public List<Assignment> findAll() {
     try (Connection con = connectionPool.getConnection();
-        PreparedStatement pstmt = con.prepareStatement(
-            "select assignment_no, title, deadline from assignments order by assignment_no desc");
-        ResultSet rs = pstmt.executeQuery()) {
+      PreparedStatement pstmt = con.prepareStatement(
+        "select assignment_no, title, deadline from assignments order by assignment_no desc");
+      ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Assignment> list = new ArrayList<>();
 
@@ -79,8 +82,8 @@ public class AssignmentDaoImpl implements AssignmentDao {
   @Override
   public Assignment findBy(int no) {
     try (Connection con = connectionPool.getConnection();
-        PreparedStatement pstmt = con.prepareStatement(
-            "select * from assignments where assignment_no=?")) {
+      PreparedStatement pstmt = con.prepareStatement(
+        "select * from assignments where assignment_no=?")) {
 
       pstmt.setInt(1, no);
 
@@ -105,8 +108,8 @@ public class AssignmentDaoImpl implements AssignmentDao {
   @Override
   public int update(Assignment assignment) {
     try (Connection con = connectionPool.getConnection();
-        PreparedStatement pstmt = con.prepareStatement(
-            "update assignments set title=?, content=?, deadline=? where assignment_no=?")) {
+      PreparedStatement pstmt = con.prepareStatement(
+        "update assignments set title=?, content=?, deadline=? where assignment_no=?")) {
 
       pstmt.setString(1, assignment.getTitle());
       pstmt.setString(2, assignment.getContent());
