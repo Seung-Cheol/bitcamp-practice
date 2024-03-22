@@ -5,6 +5,8 @@ import bitcamp.myapp.vo.Member;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -16,29 +18,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/auth")
 public class AuthController {
 
+  private final Log log = LogFactory.getLog(this.getClass());
   MemberDao memberDao;
 
   public AuthController(MemberDao memberDao) {
-    System.out.println("AuthController() 호출됨!");
+    log.debug("AuthController() 호출됨!");
     this.memberDao = memberDao;
   }
 
-  @GetMapping("/form")
-  public String form(
-    @CookieValue(value = "email", required = false) String email,
-    Model model
-  ) {
+  @GetMapping("form")
+  public void form(@CookieValue(required = false) String email, Model model) {
     model.addAttribute("email", email);
-    return "/auth/form";
   }
 
-  @PostMapping("/login")
+  @PostMapping("login")
   public String login(
-    String email,
-    String password,
-    String saveEmail,
-    HttpServletResponse response,
-    HttpSession session) throws Exception {
+      String email,
+      String password,
+      String saveEmail,
+      HttpServletResponse response,
+      HttpSession session) throws Exception {
 
     if (saveEmail != null) {
       Cookie cookie = new Cookie("email", email);
@@ -54,10 +53,11 @@ public class AuthController {
     if (member != null) {
       session.setAttribute("loginUser", member);
     }
-    return "/auth/login";
+
+    return "auth/login";
   }
 
-  @GetMapping("/logout")
+  @GetMapping("logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate();
     return "redirect:/index.html";

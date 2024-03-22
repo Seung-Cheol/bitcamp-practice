@@ -10,12 +10,12 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppWebApplicationInitializer extends
-  AbstractAnnotationConfigDispatcherServletInitializer {
+    AbstractAnnotationConfigDispatcherServletInitializer {
 
   private final Log log = LogFactory.getLog(this.getClass());
 
   public AppWebApplicationInitializer() {
-    log.debug("생성자호출됨");
+    log.debug("생성자 호출됨!");
   }
 
   @Override
@@ -36,11 +36,11 @@ public class AppWebApplicationInitializer extends
   @Override
   protected void customizeRegistration(Dynamic registration) {
     registration.setMultipartConfig(new MultipartConfigElement(
-      new File("./temp").getAbsolutePath(),
-      //new File(System.getProperty("java.io.tmpdir")).getAbsolutePath(),
-      1024 * 1024 * 10,
-      1024 * 1024 * 100,
-      1024 * 1024 * 1
+        new File("./temp").getAbsolutePath(),
+        //new File(System.getProperty("java.io.tmpdir")).getAbsolutePath(),
+        1024 * 1024 * 10,
+        1024 * 1024 * 100,
+        1024 * 1024 * 1
     ));
   }
 
@@ -48,4 +48,5 @@ public class AppWebApplicationInitializer extends
   protected Filter[] getServletFilters() {
     return new Filter[]{new CharacterEncodingFilter("UTF-8")};
   }
+
 }
