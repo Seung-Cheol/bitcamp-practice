@@ -8,13 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-  private final Log log = LogFactory.getLog(this.getClass());
-
-  public HomeController() {
-    log.debug("HomeController() 호출됨!");
-  }
+  private static final Log log = LogFactory.getLog(HomeController.class);
 
   @GetMapping("/home")
   public void home() {
+  }
+
+  @GetMapping("/home1")
+  public String home1() {
+    return "home.jsp";
+  }
+
+  @GetMapping("/home2")
+  public String home2() {
+    return "home.html";
   }
 }
