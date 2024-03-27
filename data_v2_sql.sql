@@ -264,9 +264,6 @@ insert into purchases(purchase_no, user_no, price, purchase_at, payment_type, ex
 	values(5, 5, 100000, '2023-12-15', 'kakao_pay', '2024-12-15');
     
 
--- read -> is_read 변경부탁드립니다! ( read - 이미 사용중인 예약어로 컬럼명으로 사용 불가)
--- redirect_path <- 해당되는 컨텐츠의 id를 저장하면 해당 객체의 정보를 불러올 수 있고, 
--- 					리다이렉트 경로는 변경될 가능성이 있으므로 id를 저장하는 것이 좋을 것 같습니다!
 insert into alerts(alert_no, user_no, name, type, content, created_at, is_read, redirect_path)
 	values(1, 1, '댓글이 등록되었습니다.', 1, '안녕하세요', '2023-10-01', 0, '1');
 insert into alerts(alert_no, user_no, name, type, content, created_at, is_read, redirect_path)

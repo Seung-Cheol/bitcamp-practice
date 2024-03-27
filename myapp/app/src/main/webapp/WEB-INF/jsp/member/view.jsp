@@ -1,50 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
+<head>
   <meta charset='UTF-8'>
   <title>비트캠프 데브옵스 5기</title>
 </head>
 <body>
 
-<jsp:include page="../header.jsp"></jsp:include>
+<div data-th-replace="header :: header">머리말</div>
 
 <h1>회원</h1>
-<form action='/app/member/update' method='post' enctype='multipart/form-data'>
-<div>
+<form action="update" data-th-action="@{update}" data-th-object="${member}"
+      enctype='multipart/form-data'
+      method='post'>
+  <div>
     사진:
-    <c:if test="${not empty member.photo}">
-      <a href='/upload/${member.photo}'> <img src='/upload/${member.photo}' height='80px'></a><br>
-    </c:if>
-    <c:if test="${empty member.photo}">
-      <a href='/img/default-photo.jpeg'> <img src='/img/default-photo.jpeg' height='80px'></a><br>
-    </c:if>
-      <input name='file' type='file'>
-</div>
-<div>
-    번호: <input readonly name='no' type='text' value='${member.no}'>
-</div>
-<div>
-    이메일: <input name='email' type='text' value='${member.email}'>
-</div>
-<div>
-    이름: <input name='name' type='text' value='${member.name}'>
-</div>
-<div>
-  암호: <input name='password' type='password'>
-</div>
-<div>
-  가입일: <input readonly type='text' value='<fmt:formatDate value="${member.createdDate}" pattern="yyyy-MM-dd"/>'>
-</div>
-<div>
-  <button>변경</button>
-  <a href='/app/member/delete?no=${member.no}'>[삭제]</a>
-</div>
+    <a data-th-href="@{'https://kr.object.ncloudstorage.com/bitcamp-devops128/member/' + *{photo}}" data-th-if="*{photo}">
+      <img data-th-src="@{'https://kr.object.ncloudstorage.com/bitcamp-devops128/member/' + *{photo}}" height='80px'></a><br>
+    <a data-th-unless="*{photo}" href='/img/default-photo.jpeg'>
+      <img height='80px' src='/img/default-photo.jpeg'></a><br>
+    <input name='file' type='file'>
+  </div>
+  <div>
+    번호: <input data-th-value='*{no}' name='no' readonly type='text' value="21">
+  </div>
+  <div>
+    이메일: <input data-th-value='*{email}' name='email' type='text' value="hong@test.com">
+  </div>
+  <div>
+    이름: <input data-th-value='*{name}' name='name' type='text' value="홍길동">
+  </div>
+  <div>
+    암호: <input name='password' type='password'>
+  </div>
+  <div>
+    가입일: <input data-th-value="${#dates.format(member.createdDate,'yyyy-MM-dd')}" readonly
+                type='text' value="2024-03-27">
+  </div>
+  <div>
+    <button>변경</button>
+    <a data-th-href="@{delete(no=*{no})}" href="delete.html">[삭제]</a>
+  </div>
 </form>
 
-<jsp:include page="../footer.jsp"></jsp:include>
+<div data-th-replace="footer :: footer">꼬리말</div>
 
 </body>
 </html>
