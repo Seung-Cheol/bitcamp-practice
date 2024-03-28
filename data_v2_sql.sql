@@ -157,26 +157,26 @@ insert into categories
 
 
 insert into posts
-(school_no, user_no, category_no, title, content)
-values (1, 1, 4, '타이틀입니다1', '번개 내용입니다1');
+(school_no, user_no, category_no, title, content, created_at)
+values (1, 1, 4, '타이틀입니다1', '번개 내용입니다1', '2023-04-01');
 insert into posts
-(school_no, user_no, category_no, title, content)
-values (1, 1, 4, '타이틀입니다2', '번개 내용입니다2');
+(school_no, user_no, category_no, title, content, created_at)
+values (1, 1, 4, '타이틀입니다2', '번개 내용입니다2', '2024-01-01');
 insert into posts
-(school_no, user_no, category_no, title, content)
-values (2, 1, 4, '1번과 다른 스쿨의 타이틀입니다1', '1번과 다른 스쿨의 번개 내용입니다1');
+(school_no, user_no, category_no, title, content, created_at)
+values (2, 1, 4, '1번과 다른 스쿨의 타이틀입니다1', '1번과 다른 스쿨의 번개 내용입니다1', '2024-01-04');
 insert into posts
-(school_no, user_no, category_no, title, content)
-values (3, 1, 1, '3번 스쿨 타이틀입니다1', '3번 스쿨 번개 내용입니다1');
+(school_no, user_no, category_no, title, content, created_at)
+values (3, 1, 1, '3번 스쿨 타이틀입니다1', '3번 스쿨 번개 내용입니다1', '2024-02-01');
 insert into posts
-(school_no, user_no, category_no, title, content)
-values (1, 2, 1, '1번과 다른 유저 타이틀입니다1', '1번과 다른 유저 번개 내용입니다1');
+(school_no, user_no, category_no, title, content, created_at)
+values (1, 2, 1, '1번과 다른 유저 타이틀입니다1', '1번과 다른 유저 번개 내용입니다1', '2024-03-01');
 insert into posts
-(school_no, user_no, category_no, title, content)
-values (1, 3, 1, '1번과 또 다른 유저 타이틀입니다1', '1번과 또 다른 유저 번개 내용입니다1');
+(school_no, user_no, category_no, title, content, created_at)
+values (1, 3, 1, '1번과 또 다른 유저 타이틀입니다1', '1번과 또 다른 유저 번개 내용입니다1', '2024-04-01');
 insert into posts
-(school_no, user_no, category_no, title, content)
-values (1, 1, 1, '타이틀입니다1', '정모 내용입니다1');
+(school_no, user_no, category_no, title, content, created_at)
+values (1, 1, 1, '타이틀입니다1', '정모 내용입니다1', '2024-03-21');
 
 
 insert into files(post_no,name,path,size,created_at,type)
@@ -248,9 +248,6 @@ insert into logs(action_no,user_no,created_at)
   values(2,1,'2023-05-01');
 insert into logs(action_no,user_no,created_at)
   values(3,2,'2023-05-01');
-
--- 남은 테이블 purchases, alerts, dm, tokens,gm
-
 
 insert into purchases(purchase_no, user_no, price, purchase_at, payment_type, expiration_date)
 	values(1, 1, 100000, '2023-10-01', 'kakao_pay', '2024-10-01');

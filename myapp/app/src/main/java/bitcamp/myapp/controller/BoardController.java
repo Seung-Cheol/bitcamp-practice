@@ -1,19 +1,18 @@
 package bitcamp.myapp.controller;
 
 import bitcamp.myapp.service.BoardService;
+import bitcamp.myapp.service.StorageService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +27,16 @@ public class BoardController implements InitializingBean {
 
   private static final Log log = LogFactory.getLog(BoardController.class);
   private final BoardService boardService;
-  private final ServletContext servletContext;
+  private final StorageService storageService;
   private String uploadDir;
+
+
+  @Value("${ncp.ss.bucketname}")
+  private String bucketName;
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    this.uploadDir = servletContext.getRealPath("/upload/board");
+    this.uploadDir = "board/";
   }
 
   @GetMapping("form")
@@ -44,10 +47,10 @@ public class BoardController implements InitializingBean {
 
   @PostMapping("add")
   public String add(
-      Board board,
-      MultipartFile[] attachedFiles,
-      HttpSession session,
-      Model model) throws Exception {
+    Board board,
+    MultipartFile[] attachedFiles,
+    HttpSession session,
+    Model model) throws Exception {
 
     model.addAttribute("category", board.getCategory());
 
@@ -56,15 +59,13 @@ public class BoardController implements InitializingBean {
       throw new Exception("로그인하시기 바랍니다!");
     }
     board.setWriter(loginUser);
-
     ArrayList<AttachedFile> files = new ArrayList<>();
     if (board.getCategory() == 1) {
       for (MultipartFile file : attachedFiles) {
         if (file.getSize() == 0) {
           continue;
         }
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(this.uploadDir + "/" + filename));
+        String filename = storageService.upload(bucketName, uploadDir, file);
         files.add(AttachedFile.builder().filePath(filename).build());
       }
     }
@@ -99,10 +100,10 @@ public class BoardController implements InitializingBean {
 
   @PostMapping("update")
   public String update(
-      Board board,
-      MultipartFile[] attachedFiles,
-      HttpSession session,
-      Model model) throws Exception {
+    Board board,
+    MultipartFile[] attachedFiles,
+    HttpSession session,
+    Model model) throws Exception {
 
     model.addAttribute("category", board.getCategory());
 
@@ -125,8 +126,7 @@ public class BoardController implements InitializingBean {
         if (file.getSize() == 0) {
           continue;
         }
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(this.uploadDir + "/" + filename));
+        String filename = storageService.upload(bucketName, uploadDir, file);
         files.add(AttachedFile.builder().filePath(filename).build());
       }
     }
@@ -161,7 +161,7 @@ public class BoardController implements InitializingBean {
     boardService.delete(no);
 
     for (AttachedFile file : files) {
-      new File(this.uploadDir + "/" + file.getFilePath()).delete();
+      storageService.delete(this.bucketName, this.uploadDir, file.getFilePath());
     }
 
     return "redirect:list?category=" + category;
@@ -187,7 +187,7 @@ public class BoardController implements InitializingBean {
 
     boardService.deleteAttachedFile(no);
 
-    new File(this.uploadDir + "/" + file.getFilePath()).delete();
+    storageService.delete(this.bucketName, this.uploadDir, file.getFilePath());
 
     return "redirect:../view?category=" + category + "&no=" + file.getBoardNo();
   }
