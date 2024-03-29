@@ -261,8 +261,6 @@ insert into purchases(purchase_no, user_no, price, purchase_at, payment_type, ex
 	values(5, 5, 100000, '2023-12-15', 'kakao_pay', '2024-12-15');
     
 
-    
-
 insert into dm(dm_no, user_no2, user_no, message, created_at)
 	values(1, 1 ,2 , '안녕하세요', '2023-10-01 10:00:00');
 insert into dm(dm_no, user_no2, user_no, message, created_at)
@@ -280,7 +278,8 @@ insert into dm(dm_no, user_no2, user_no, message, created_at, photo)
 insert into dm(dm_no, user_no2, user_no, message, created_at, photo)
 	values(8, 1 ,2 , '바오가족 귀여워.', '2023-10-01 11:03:20', '/photo/baofamily.jpg');
 
-  insert into alerts(alert_no, user_no, name, type, content, created_at, is_read, redirect_path)
+  
+insert into alerts(alert_no, user_no, name, type, content, created_at, is_read, redirect_path)
 	values(1, 1, '댓글이 등록되었습니다.', 1, '안녕하세요', '2023-10-01', 0, '1');
 insert into alerts(alert_no, user_no, name, type, content, created_at, is_read, redirect_path)
 	values(2, 2, '회원님의 프로필을 좋아합니다.', 2, '', '2023-10-11', 0, '1');

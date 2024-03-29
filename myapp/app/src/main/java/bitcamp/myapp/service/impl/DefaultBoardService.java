@@ -30,8 +30,8 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
-  public List<Board> list(int category) {
-    return boardDao.findAll(category);
+  public List<Board> list(int category, int pageNo, int pageSize) {
+    return boardDao.findAll(category, (pageNo - 1) * pageSize, pageSize);
   }
 
   @Override
@@ -73,4 +73,10 @@ public class DefaultBoardService implements BoardService {
   public int deleteAttachedFile(int fileNo) {
     return attachedFileDao.delete(fileNo);
   }
+
+  @Override
+  public int countAll(int category) {
+    return boardDao.countAll(category);
+  }
+
 }

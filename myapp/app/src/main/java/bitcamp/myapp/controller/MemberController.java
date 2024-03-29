@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
@@ -50,8 +51,16 @@ public class MemberController implements InitializingBean {
   }
 
   @GetMapping("list")
-  public void list(Model model) throws Exception {
-    model.addAttribute("list", memberService.list());
+  public void list(
+    Model model,
+    @RequestParam(defaultValue = "5") int pageSize,
+    @RequestParam(defaultValue = "1") int pageNo) throws Exception {
+    int totalCount = memberService.countAll();
+    int totalPage = totalCount / pageSize + (totalCount % pageSize != 0 ? 1 : 0);
+    model.addAttribute("list", memberService.list(pageSize, pageNo));
+    model.addAttribute("totalPage", totalPage);
+    model.addAttribute("pageSize", pageSize);
+    model.addAttribute("pageNo", pageNo);
   }
 
   @GetMapping("view")

@@ -12,7 +12,10 @@ public interface MemberDao {
 
   public int delete(int no);
 
-  public List<Member> findAll();
+  public List<Member> findAll(
+    @Param("offset") int offset,
+    @Param("pageSize") int pageSize
+  );
 
   public Member findBy(int no);
 
@@ -21,4 +24,6 @@ public interface MemberDao {
   public Member findByEmailAndPassword(
     @Param("email") String email,
     @Param("password") String password);
+
+  int countAll();
 }
